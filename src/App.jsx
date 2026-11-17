@@ -181,6 +181,14 @@ function GrievanceTicket({ ticket }) {
 }
 
 export default function CivicPulseAI() {
+  useEffect(() => {
+  try {
+    localStorage.setItem("civicpulse_tickets", JSON.stringify(tickets));
+  } catch (error) {
+    console.error("Could not save complaints:", error);
+    setError("Storage unavailable. Your latest complaints may not be saved.");
+  }
+}, [tickets]);
   const [text, setText] = useState("");
   const [tickets, setTickets] = useState(() => {
   try {
