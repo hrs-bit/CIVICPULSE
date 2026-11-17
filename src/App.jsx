@@ -182,7 +182,14 @@ function GrievanceTicket({ ticket }) {
 
 export default function CivicPulseAI() {
   const [text, setText] = useState("");
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState(() => {
+  try {
+    const saved = localStorage.getItem("civicpulse_tickets");
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const counterRef = useRef(1);
